@@ -9,7 +9,9 @@ description: "プロフィールベースの求人マッチング。スキル・
 
 ## プライバシーに関する注意
 
-このスキルはプロフィール情報（スキル、職種、年収、勤務地希望など）を求人検索に使用する。取得したデータはこのセッション内でのみ利用し、外部に保存・送信しない。
+スキル実行開始時に、以下の注意事項をユーザーに伝えること。
+
+> プロフィール情報（スキル、職種、年収、勤務地希望など）を使用して求人を検索します。取得した情報はこの会話内でのみ使用し、外部に保存・共有されることはありません。
 
 ## 前提条件
 
@@ -63,8 +65,8 @@ search_positions({ query: "バックエンドエンジニア" })
 
 | プロフィール項目 | search_jobs パラメータ |
 |---|---|
-| `career_intention.current_annual_pay` | `minSalary` (現年収をそのまま下限とする) |
-| `career_intention.expected_annual_pay` | `maxSalary` は指定しない (上限を絞ると候補が減るため) |
+| `career_intention.current_annual_pay` | `minSalary` には現年収の 80% を設定する（横移動・微増の求人も含めるため） |
+| `career_intention.expected_annual_pay` | `maxSalary` は指定しない（上限を絞ると候補が減るため） |
 | `working_style.working_place_type` | ユーザーが自然言語で追加指定した場合のみ反映 |
 | `company_preferences` | search_jobs に直接マッピングできないため、Step 4 のマッチ分析で考慮する |
 
@@ -120,20 +122,20 @@ search_jobs({
 
 ### Step 5: 結果の提示
 
-## MCP 呼び出し回数の制約
+Step 4 の分析結果を「出力フォーマット」に従って提示する。検索条件の補足と、条件変更のヒントも末尾に含める。
 
-合計 6 回以内に収める。典型的な内訳:
+## MCP 呼び出し回数の目安
 
 | ツール | 回数 |
 |---|---|
 | `get_profile` | 1 |
-| `search_skills` | 最大 5 (スキル上位 5 件) |
+| `search_skills` | 最大 5（スキル上位 5 件、並列実行可） |
 | `search_positions` | 1 |
-| `search_jobs` | 1 (再検索含めて最大 2) |
-| `get_job_detail` | 最大 3 |
-| **合計目安** | **6 - 12** |
+| `search_jobs` | 1（再検索含めて最大 2） |
+| `get_job_detail` | 最大 3（並列実行可） |
+| **合計** | **7 - 12** |
 
-注: `search_skills` は並列呼び出し可能。`get_job_detail` も並列呼び出し可能。効率のため可能な限り並列実行すること。
+`search_skills` と `get_job_detail` は並列呼び出し可能。効率のため可能な限り並列実行すること。
 
 ## 出力フォーマット
 
