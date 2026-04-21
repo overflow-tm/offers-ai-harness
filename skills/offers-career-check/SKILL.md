@@ -29,22 +29,22 @@ MCP ツール `get_profile` を呼び出し、以下を取得する。
 まず /offers-profile-review でプロフィールを整備してください。
 ```
 
-### Step 2: スキル ID 変換 + 求人検索
+### Step 2: 求人検索
 
-`get_profile` が返すスキルには ID が含まれないため、`search_skills` でスキル名から ID を取得する必要がある。
-
-スキルを経験年数の降順でソートし、**上位 3 件**のみ `search_skills` で ID 変換する（MCP 呼び出し回数を抑えるため）。
+`get_profile` が返すスキルには `id` フィールドが含まれる。これを直接 `search_jobs` の `skillIds` に渡す。
 
 ```
-search_skills({ query: "React" }) -> skills[0].id を取得
-search_skills({ query: "Go" })    -> skills[0].id を取得
-search_skills({ query: "AWS" })   -> skills[0].id を取得
+profile.skills = [
+  { id: "231", name: "Ruby on Rails", exp_years: "10年以上" },
+  { id: "240", name: "Go", exp_years: "5年以上" },
+  ...
+]
 ```
 
-取得したスキル ID を使い、`search_jobs` を呼び出す。
+全スキル ID をまとめて 1 回で検索する。
 
 ```
-search_jobs({ skillIds: [取得したスキルID一覧], perPage: 20 })
+search_jobs({ skillIds: ["231", "240", ...], perPage: 20 })
 ```
 
 - `perPage: 20` で統計に必要な母数を確保する
@@ -100,11 +100,10 @@ Step 2 で取得した求人のうち、`job_median` が上位帯以上の高年
 | ツール | 回数 |
 |--------|------|
 | `get_profile` | 1 |
-| `search_skills` | 最大 3（スキル上位 3 件、並列実行可） |
 | `search_jobs` | 1 |
-| **合計** | **5** |
+| **合計** | **2** |
 
-`search_skills` は並列呼び出し可能。効率のため可能な限り並列実行すること。
+`get_profile` が返すスキル ID を直接使用するため、`search_skills` は不要。
 
 ## 出力フォーマット
 
