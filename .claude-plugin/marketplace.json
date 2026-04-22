@@ -10,24 +10,14 @@
   "plugins": [
     {
       "name": "offers-ai-harness",
-      "source": {
-        "source": "github",
-        "repo": "overflow-tm/offers-ai-harness",
-        "ref": "main"
-      },
+      "source": "./",
       "description": "Offers 転職プラットフォームと連携し、求人マッチング・年収チェック・プロフィールレビューを行う AI Skill セット",
-      "version": "0.1.0",
       "author": {
         "name": "overflow inc."
       },
+      "homepage": "https://github.com/overflow-tm/offers-ai-harness",
       "license": "Apache-2.0",
-      "keywords": ["offers", "job-matching", "mcp", "career", "転職"],
-      "mcpServers": {
-        "offers_worker": {
-          "type": "http",
-          "url": "https://mcp.offers.jp/worker"
-        }
-      }
+      "keywords": ["offers", "job-matching", "mcp", "career", "転職"]
     }
   ]
 }
