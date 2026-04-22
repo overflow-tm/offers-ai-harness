@@ -1,49 +1,65 @@
-# offers-ai-harness
+# Offers — AI エージェントで転職活動をもっとスマートに
 
-Offers プラットフォームと AI エージェント（Claude Code, Codex CLI, Cursor, gh skills）を接続する Plugin。
+[Offers](https://offers.jp/) は、AI時代のハイクラスエンジニア・PdM 向け転職プラットフォームです。
 
-## セットアップ
+このリポジトリは、あなたが普段使っている AI コーディングエージェント（Claude Code, Codex CLI など）から Offers の機能を直接利用するための Skill セットを提供します。
 
-### Claude Code
+## あなたのスキルに合う求人を、AI が探します
+
+| Skill | できること |
+|-------|----------|
+| `/offers-job-match` | あなたのプロフィール（スキル・職種・経験年数）をもとに、マッチする求人を検索し、合う点・足りない点を分析します |
+| `/offers-career-check` | 同じスキルセットの求人市場での年収相場（下位帯・中央値・上位帯）を算出し、年収アップにつながるスキルを提案します |
+| `/offers-profile-review` | プロフィールの強み・弱みをレビューし、改善提案を提示。承認すれば Offers プロフィールをその場で更新できます |
+
+## はじめかた
+
+### 1. Offers アカウントを準備
+
+[offers.jp](https://offers.jp/) でアカウントを作成し、スキル・職種・職歴を登録してください。登録内容が充実しているほど、マッチング精度が上がります。
+
+### 2. AI エージェントにインストール
+
+**Claude Code:**
 
 ```bash
 /plugin install github.com/overflow-tm/offers-ai-harness
 ```
 
-### Codex CLI
-
-`$skill-installer` でインストール後、`~/.codex/config.toml` に MCP 接続設定を追加（詳細は AGENTS.md 参照）。
-
-### Cursor
-
-将来対応予定（マーケットプレイス公開時）。
-
-### gh skills
+**gh skills:**
 
 ```bash
 gh skills add overflow-tm/offers-ai-harness
 ```
 
-## 提供する Skill
+<details>
+<summary>その他のツール</summary>
 
-| Skill | 概要 |
-|-------|------|
-| `/offers-job-match` | プロフィールベースの求人マッチング |
-| `/offers-career-check` | スキルセットベースの年収相場チェック |
-| `/offers-profile-review` | プロフィールレビュー + 改善実行 |
+**Codex CLI:**
 
-## 前提条件
+`$skill-installer` でインストール後、`~/.codex/config.toml` に MCP 接続設定を追加してください。詳細は [AGENTS.md](./AGENTS.md) を参照。
 
-- [Offers](https://offers.jp/) アカウント（プロフィール・スキル登録済み）
-- 対応ツール: Claude Code / Codex CLI / gh skills
-- 初回利用時に OAuth 認証が必要（ブラウザが開きます）
+</details>
 
-## MCP サーバー
+### 3. Skill を実行
 
-| 環境 | URL |
-|------|-----|
-| 本番 | `https://mcp.offers.jp/worker` |
+インストール後、AI エージェントで以下のように話しかけるだけで使えます。
+
+- 「自分に合う求人を探して」→ `/offers-job-match`
+- 「年収相場を教えて」→ `/offers-career-check`
+- 「プロフィールを見直したい」→ `/offers-profile-review`
+
+初回のみ、ブラウザが開いて Offers アカウントの認証が求められます。
+
+## Offers について
+
+> ハイクラスエンジニア・PdM 向け転職プラットフォーム「Offers」。登録 35,000 人・導入 1,000 社以上の実績。技術背景と志向性を AI が深く分析し、あなたのキャリアを支援します。
+
+- [Offers トップ](https://offers.jp/)
+- [求人を探す（Offers Jobs）](https://offers.jp/jobs)
+- [利用規約](https://offers.jp/terms)
+- [プライバシーポリシー](https://offers.jp/privacypolicy)
 
 ## ライセンス
 
-Apache License 2.0
+[Apache License 2.0](./LICENSE)
