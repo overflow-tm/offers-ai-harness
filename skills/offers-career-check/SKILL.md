@@ -35,22 +35,38 @@ MCP ツール `get_profile` を呼び出し、以下を取得する。
 
 `get_profile` が返すスキルには `id` フィールドが含まれる。これを直接 `search_jobs` の `skillIds` に渡す。
 
+**重要: `skillIds` は最大 10 件まで**（GraphQL API の制約）。スキルが 10 件を超える場合は、経験年数 (`exp_years`) の降順でソートし、上位 10 件の `id` を使用する。
+
+**`exp_years` のソート方法**: 値は「10年以上」「5年以上」「3年」「1年未満」等の日本語文字列。以下のルールで数値化してソートする:
+- 数字部分を抽出（「10年以上」→ 10、「3年」→ 3、「1年未満」→ 1）
+- 「以上」付きは数字そのまま、「未満」付きも数字そのまま、なしも数字そのまま
+- 数字が抽出できない場合（空文字、「未入力」等）は 0 として扱う
+- 同一年数のスキルが複数ある場合は、プロフィールの登録順を維持する
+
 ```
 profile.skills = [
-  { id: "231", name: "Ruby on Rails", exp_years: "10年以上" },
-  { id: "240", name: "Go", exp_years: "5年以上" },
-  ...
+  { id: "234", name: "AWS", exp_years: "10年以上" },           → 10
+  { id: "216", name: "JavaScript", exp_years: "10年以上" },    → 10
+  { id: "252", name: "TypeScript", exp_years: "7年以上" },     → 7
+  { id: "236", name: "Node.js", exp_years: "7年以上" },        → 7
+  { id: "230", name: "PHP", exp_years: "7年以上" },            → 7
+  { id: "229", name: "Ruby", exp_years: "5年以上" },           → 5
+  { id: "231", name: "Ruby on Rails", exp_years: "5年以上" },  → 5
+  { id: "235", name: "Docker", exp_years: "5年以上" },         → 5
+  { id: "240", name: "Go", exp_years: "5年以上" },             → 5
+  { id: "298", name: "Redis", exp_years: "5年以上" },          → 5
+  ...（11件目以降は除外）
 ]
+→ skillIds: ["234", "216", "252", "236", "230", "229", "231", "235", "240", "298"]（上位10件）
 ```
 
-全スキル ID をまとめて 1 回で検索する。
-
 ```
-search_jobs({ skillIds: ["231", "240", ...], perPage: 20 })
+search_jobs({ skillIds: ["234", "216", ...], perPage: 20 })
 ```
 
 - `perPage: 20` で統計に必要な母数を確保する
 - レスポンスの `totalCount` を確認し、`totalCount` が perPage を大きく超える場合は「全 N 件中 20 件をサンプルとして使用」と出力に注記する
+- スキルを絞った場合は「登録スキル N 件中、経験年数上位 10 件で検索」と出力に注記する
 - 検索結果が 0 件の場合はスキル条件を減らして再検索する
 
 ### Step 3: 年収統計の算出

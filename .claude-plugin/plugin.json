@@ -1,7 +1,7 @@
 {
   "name": "offers-ai-harness",
   "description": "Offers プラットフォームと AI エージェントを接続する Plugin。求人マッチング・年収チェック・プロフィールレビューの 3 Skill を提供。",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "overflow inc.",
     "url": "https://overflow.co.jp"
