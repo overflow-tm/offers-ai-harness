@@ -1,0 +1,23 @@
+{
+  "name": "offers-ai-harness",
+  "owner": {
+    "name": "overflow inc.",
+    "email": "dev@overflow.co.jp"
+  },
+  "metadata": {
+    "description": "Offers 転職プラットフォームと AI エージェントを接続する Plugin マーケットプレイス"
+  },
+  "plugins": [
+    {
+      "name": "offers-ai-harness",
+      "source": "./",
+      "description": "Offers 転職プラットフォームと連携し、求人マッチング・年収チェック・プロフィールレビューを行う AI Skill セット",
+      "version": "0.1.0",
+      "author": {
+        "name": "overflow inc."
+      },
+      "license": "Apache-2.0",
+      "keywords": ["offers", "job-matching", "mcp", "career", "転職"]
+    }
+  ]
+}

@@ -23,13 +23,11 @@
 **Claude Code:**
 
 ```bash
-/plugin install github.com/overflow-tm/offers-ai-harness
-```
+# マーケットプレイスを追加（初回のみ）
+/plugin marketplace add overflow-tm/offers-ai-harness
 
-**gh skills:**
-
-```bash
-gh skills add overflow-tm/offers-ai-harness
+# プラグインをインストール
+/plugin install offers-ai-harness@offers-ai-harness
 ```
 
 <details>
@@ -38,6 +36,12 @@ gh skills add overflow-tm/offers-ai-harness
 **Codex CLI:**
 
 `$skill-installer` でインストール後、`~/.codex/config.toml` に MCP 接続設定を追加してください。詳細は [AGENTS.md](./AGENTS.md) を参照。
+
+**gh skills:**
+
+```bash
+gh skills add overflow-tm/offers-ai-harness
+```
 
 </details>
 
