@@ -20,7 +20,8 @@ url = "https://mcp.offers.jp/worker"
 | `get_profile` | ログインユーザーのプロフィール取得 |
 | `update_profile` | プロフィール更新 |
 | `search_skills` | スキル検索（「バックエンド」等のカテゴリ対応） |
-| `search_positions` | 職種検索（「エンジニア」等のカテゴリ対応） |
+| `search_positions` | 職種検索（求人検索用。「エンジニア」等のカテゴリ対応） |
+| `search_sub_occupations` | サブ職種検索（プロフィール更新用。`update_profile` の `subOccupationId` 取得に使用） |
 | `search_jobs` | 求人検索（スキル・職種・勤務地等で絞り込み） |
 | `get_job_detail` | 求人詳細取得 |
 
