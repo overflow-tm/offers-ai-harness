@@ -134,6 +134,7 @@ search_jobs({
 |---|---|
 | スキル一致 | `job.skills` とプロフィールスキルの重複数 |
 | 希望スキル | `job.preferred_skills` とプロフィールスキルの重複 |
+| 関連スキル | `job.all_skills` とプロフィールスキルの重複（`skills`/`preferred_skills` が空でも求人に関連するスキルが含まれる。全 require_status のスキルを包含） |
 | 職種一致 | `job.occupation` と プロフィール職種の一致 |
 | 年収帯 | `job.annualized_pay_min`-`annualized_pay_max` と希望年収の比較 |
 | 勤務形態 | `job.workplace` と希望勤務形態の一致 |
