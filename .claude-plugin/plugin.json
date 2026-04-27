@@ -9,11 +9,5 @@
   "repository": "https://github.com/overflow-tm/offers-ai-harness",
   "license": "Apache-2.0",
   "keywords": ["offers", "job-matching", "mcp", "career"],
-  "mcpServers": {
-    "offers_worker": {
-      "type": "http",
-      "url": "https://mcp.offers.jp/worker"
-    }
-  },
   "skills": ["./skills"]
 }
