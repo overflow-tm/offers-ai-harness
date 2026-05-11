@@ -24,6 +24,7 @@ description: "スキルセットベースの年収相場チェック。現在の
 MCP ツール `get_profile` を呼び出し、以下を取得する。
 
 - `skills` 配列 — ユーザーが登録しているスキル一覧（各要素に `id`, `name` を含む）
+- `sub_occupations` 配列 — ユーザーが登録している職種一覧（各要素に `primary_job_position_id`, `name`, `exp_years` を含む）
 - `career_intention.current_annual_pay` — 現在の年収（万円単位、未設定の場合は null）
 
 **エラー処理**:
@@ -37,6 +38,8 @@ MCP ツール `get_profile` を呼び出し、以下を取得する。
 ```
 
 ### Step 2: 求人検索
+
+#### 2a. スキル ID の取得
 
 `get_profile` が返すスキルには `id` フィールドが含まれる。これを直接 `search_jobs` の `skillIds` に渡す。
 
@@ -65,14 +68,33 @@ profile.skills = [
 → skillIds: ["234", "216", "252", "236", "230", "229", "231", "235", "240", "298"]（上位10件）
 ```
 
+#### 2b. 職種 ID の取得
+
+職種ミスマッチ求人（例: データサイエンティストに対する Web エンジニア求人）を母集団から除外し、市場相場の精度を担保するため、`get_profile` が返す `sub_occupations` の `primary_job_position_id` を `positionIds` として渡す。
+
+- 経験年数の降順（2a と同じソート方法）でソートし、`primary_job_position_id` が非 null のものを最大 2 件まで `positionIds` として使用する（複数職種のユーザーの取りこぼしを防ぐため）
+- `sub_occupations` が空、または `primary_job_position_id` が全て null の場合は `positionIds` を**指定しない**（スキルのみで検索する）。`search_positions` によるフォールバックは行わない（MCP 呼出上限を厳守するため）
+
 ```
-search_jobs({ skillIds: ["234", "216", ...], perPage: 20 })
+profile.sub_occupations = [
+  { primary_job_position_id: "27", name: "バックエンドエンジニア", exp_years: "10年以上" },
+  { primary_job_position_id: "90", name: "AIエンジニア", exp_years: "5年以上" },
+  ...
+]
+→ positionIds: ["27", "90"]（primary_job_position_id が非 null の上位 2 件）
+```
+
+#### 2c. 検索の実行
+
+```
+search_jobs({ skillIds: ["234", "216", ...], positionIds: ["27", "90"], perPage: 20 })
 ```
 
 - `perPage: 20` で統計に必要な母数を確保する
 - レスポンスの `totalCount` を確認し、`totalCount` が perPage を大きく超える場合は「全 N 件中 20 件をサンプルとして使用」と出力に注記する
 - スキルを絞った場合は「登録スキル N 件中、経験年数上位 10 件で検索」と出力に注記する
-- 検索結果が 0 件の場合はスキル条件を減らして再検索する
+- `positionIds` を指定した場合は「職種『〇〇』『△△』に絞って検索」と出力に注記する
+- 検索結果が 0 件の場合はスキル条件を減らして再検索する（`positionIds` は維持する）
 
 ### Step 3: 年収統計の算出
 
