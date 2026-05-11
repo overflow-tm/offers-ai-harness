@@ -75,10 +75,12 @@ profile.skills = [
 - 経験年数の降順（2a と同じソート方法）でソートし、`primary_job_position_id` が非 null のものを最大 2 件まで `positionIds` として使用する（複数職種のユーザーの取りこぼしを防ぐため）
 - `sub_occupations` が空、または `primary_job_position_id` が全て null の場合は `positionIds` を**指定しない**（スキルのみで検索する）。`search_positions` によるフォールバックは行わない（MCP 呼出上限を厳守するため）
 
+**`exp_years` の取りうる値**: `1年` / `3年` / `5年` / `7年` / `10年以上` / `未入力` の 6 種（skill の `exp_years` とは別の粗い粒度）。Step 2a と同じ数字抽出ルールでソート可能（「未入力」は 0 として扱う）。
+
 ```
 profile.sub_occupations = [
   { primary_job_position_id: "27", name: "バックエンドエンジニア", exp_years: "10年以上" },
-  { primary_job_position_id: "90", name: "AIエンジニア", exp_years: "5年以上" },
+  { primary_job_position_id: "90", name: "AIエンジニア", exp_years: "5年" },
   ...
 ]
 → positionIds: ["27", "90"]（primary_job_position_id が非 null の上位 2 件）
