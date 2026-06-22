@@ -24,7 +24,7 @@
 
 ```bash
 # マーケットプレイスを追加（初回のみ）
-/plugin marketplace add overflow-tm/offers-ai-harness
+/plugin marketplace add https://github.com/overflow-tm/offers-ai-harness.git
 
 # プラグインをインストール
 /plugin install offers-ai-harness@offers-ai-harness
