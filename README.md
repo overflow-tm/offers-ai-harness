@@ -33,8 +33,6 @@
 # 接続状態は /mcp コマンドで確認できます。
 ```
 
-> `owner/repo` 形式のショートハンドは、ローカルの `git config url.<base>.insteadOf` 設定の影響を受けて SSH 経由のクローンが試行され、`Permission denied (publickey)` で失敗する場合があります。上記のとおり HTTPS のフル URL で指定すると確実です。
-
 <details>
 <summary>その他のツール</summary>
 
