@@ -24,7 +24,7 @@
 
 ```bash
 # マーケットプレイスを追加（初回のみ）
-/plugin marketplace add overflow-tm/offers-ai-harness
+/plugin marketplace add https://github.com/overflow-tm/offers-ai-harness.git
 
 # プラグインをインストール
 /plugin install offers-ai-harness@offers-ai-harness
@@ -32,6 +32,8 @@
 # インストール後、MCP 接続が自動設定されます。
 # 接続状態は /mcp コマンドで確認できます。
 ```
+
+> `owner/repo` 形式のショートハンドは、ローカルの `git config url.<base>.insteadOf` 設定の影響を受けて SSH 経由のクローンが試行され、`Permission denied (publickey)` で失敗する場合があります。上記のとおり HTTPS のフル URL で指定すると確実です。
 
 <details>
 <summary>その他のツール</summary>
