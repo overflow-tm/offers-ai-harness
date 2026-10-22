@@ -23,14 +23,19 @@
 **Claude Code:**
 
 ```bash
+/plugin install offers-ai-harness --marketplace overflow-tm/offers-ai-harness
+```
+
+インストール後、MCP 接続が自動設定されます。接続状態は `/mcp` コマンドで確認できます。
+
+Claude Code v2.1.275 より前の版では、次の 2 行で入ります。
+
+```bash
 # マーケットプレイスを追加（初回のみ）
 /plugin marketplace add https://github.com/overflow-tm/offers-ai-harness.git
 
 # プラグインをインストール
 /plugin install offers-ai-harness@offers-ai-harness
-
-# インストール後、MCP 接続が自動設定されます。
-# 接続状態は /mcp コマンドで確認できます。
 ```
 
 <details>
