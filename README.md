@@ -65,7 +65,7 @@ gh skills add overflow-tm/offers-ai-harness
 
 ## Offers について
 
-> ハイクラスエンジニア・PdM 向け転職プラットフォーム「Offers」。登録 35,000 人・導入 1,000 社以上の実績。技術背景と志向性を AI が深く分析し、あなたのキャリアを支援します。
+> ハイクラスエンジニア・PdM 向け転職プラットフォーム「Offers」。登録者 40,000 人・導入 1,000 社以上の実績。技術背景と志向性を AI が深く分析し、あなたのキャリアを支援します。
 
 - [Offers トップ](https://offers.jp/)
 - [求人を探す（Offers Jobs）](https://offers.jp/jobs)
