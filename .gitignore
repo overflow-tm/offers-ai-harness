@@ -3,3 +3,6 @@ node_modules/
 .env.*
 *.log
 .DS_Store
+
+# Claude Code の個人設定。承認したコマンドがそのまま残り、秘密が入りうる
+**/.claude/settings.local.json
